@@ -1,0 +1,40 @@
+[project]
+name = "doctolib-availability-tracker"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "pdgarden", email = "paul.desjardin1@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "loguru>=0.7.3",
+    "pydantic-settings>=2.7.1",
+    "pydantic>=2.10.4",
+    "selenium>=4.27.1",
+]
+
+[project.scripts]
+doctolib-availability-tracker = "doctolib_availability_tracker:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+preview = true
+extend-select = [
+    'E', 'F', 'W', 'C90', 'A', 'ANN', 'S', 'B', 'PT', 'Q', 'RSE', 'SIM', 'ARG', 'PTH', 'PD',
+    'TRY', 'FLY', 'NPY', 'PLC', 'PLE', 'PLW', 'I',
+    ]
+ignore = ['E731']
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.0.1",
+    "ruff>=0.8.6",
+]
