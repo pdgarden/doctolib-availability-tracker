@@ -25,6 +25,7 @@ The project is developed and tested using uv (`v0.5.10`).
 
 - The environment variables can be set manually, or using a `.env` file is supported at the directory's root.
 - An example is given in `.env-example`
+- The environment variable will override the value set in `.env`
 
 | Variable | Description | Required | Default | Examples |
 |----------|-------------|----------|---------|-----------|
