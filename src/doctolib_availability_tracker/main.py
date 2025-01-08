@@ -8,6 +8,7 @@ from doctolib_availability_tracker.scraper import Scraper
 
 def main() -> None:
     """Main program."""
+    logger.info("Start")
     scraper = Scraper(
         search_term=config.search_term,
         search_place=config.search_place,
