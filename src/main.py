@@ -1,9 +1,9 @@
 from loguru import logger
 
-from doctolib_availability_tracker import constants
-from doctolib_availability_tracker.configuration import config
-from doctolib_availability_tracker.notify import send_email
-from doctolib_availability_tracker.scraper import Scraper
+from src import constants
+from src.configuration import config
+from src.notify import send_email
+from src.scraper import Scraper
 
 
 def main() -> None:

@@ -18,7 +18,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from doctolib_availability_tracker import constants
+from src import constants
 
 # ------------------------------------------------------------------------------------------------ #
 # Models

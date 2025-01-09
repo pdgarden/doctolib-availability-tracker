@@ -3,7 +3,7 @@ import ssl
 
 from loguru import logger
 
-from doctolib_availability_tracker.configuration import config
+from src.configuration import config
 
 
 def send_email(receiver_email: str, message: str) -> None:

@@ -46,7 +46,7 @@ The project is developed and tested using uv (`v0.5.10`).
 2. Install uv (v0.5.10 recommended). See [doc](https://docs.astral.sh/uv/getting-started/installation/). `curl -LsSf https://astral.sh/uv/0.5.10/install.sh | sh`
 3. Install project and dependencies: `uv sync`
 4. Set up pre-commit: `uv run pre-commit install -t commit-msg -t pre-commit`
-5. Run script: `uv run python src/doctolib_availability_tracker/main.py`
+5. Run script: `uv run python -m src.main`
 
 
 # 4. 🚀 Run
