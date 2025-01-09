@@ -20,12 +20,10 @@ def main() -> None:
     scraper.scrap_scenario()
 
     if len(scraper.accepted_availabilities) > 0:
+        availabilities = scraper.get_accepted_availabilities_pretty()
         send_email(
             receiver_email=config.receiver_email,
-            message=f"""Subject: RDV Doctolib: {config.search_term} ({config.search_place})
-
-{scraper.get_accepted_availabilities_pretty()}
-""",
+            message=f"""Subject: RDV Doctolib: {config.search_term} ({config.search_place})\n\n{availabilities}""",
         )
 
     logger.info("end")
