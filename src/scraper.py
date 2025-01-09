@@ -12,7 +12,8 @@ from datetime import date, timedelta
 from loguru import logger
 from pydantic import BaseModel
 from selenium import webdriver
-from selenium.common.exceptions import ElementClickInterceptedException, NoSuchElementException
+from selenium.common.exceptions import ElementClickInterceptedException, NoSuchElementException, TimeoutException
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
@@ -48,6 +49,7 @@ class Scraper:
         search_place: str,
         filtered_doctor_names: list[str],
         filtered_cities: list[str],
+        headless: bool,
         nb_days_filter: int = 14,
         start_url: str = constants.URL_DOCTOLIB,
     ) -> None:
@@ -70,7 +72,13 @@ class Scraper:
         self.availabilities: list[DoctorAvailability] = []
 
         # Browser
-        self.driver = webdriver.Chrome()
+        if headless:
+            chrome_options = Options()
+            chrome_options.add_argument("--headless=new")
+        else:
+            chrome_options = None
+
+        self.driver = webdriver.Chrome(options=chrome_options)
         self.wait: WebDriverWait = WebDriverWait(self.driver, 1.5)
 
     def open_browser(self) -> None:
@@ -79,9 +87,12 @@ class Scraper:
 
     def handle_cookies(self) -> None:
         """Handle cookies."""
-        cookie_disagree_element = "button#didomi-notice-agree-button"
-        accept_button = self.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, cookie_disagree_element)))
-        accept_button.click()
+        try:
+            cookie_disagree_element = "button#didomi-notice-agree-button"
+            accept_button = self.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, cookie_disagree_element)))
+            accept_button.click()
+        except TimeoutException as exc:
+            logger.warning(f"Couldn't handle cookies. Perhaps not asked: {exc.__class__.__name__}")
 
     def launch_search(self) -> None:
         """Launch search."""

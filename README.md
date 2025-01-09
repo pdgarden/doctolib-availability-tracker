@@ -38,6 +38,7 @@ The project is developed and tested using uv (`v0.5.10`).
 | `NB_DAYS_FILTER` | Appointments starting after this many days will be filtered | No | `14` | `90` |
 | `RAW_FILTERED_DOCTOR_NAMES` | Doctor names to filter (case sensitive, separated by `\|`) | No | - | `Dupont`, `Dupont\|DURAND` |
 | `RAW_FILTERED_CITIES` | Cities to filter (case sensitive, separated by `\|`) | No | - | `Périgueux`, `Périgueux\|Agen` |
+| `HEADLESS` | To run selenium headless mode | No | `true` | `true`, `false` |
 
 
 # 3. 🔌 Quickstart

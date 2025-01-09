@@ -16,6 +16,7 @@ def main() -> None:
         filtered_cities=config.filtered_cities,
         nb_days_filter=config.nb_days_filter,
         start_url=constants.URL_DOCTOLIB,
+        headless=config.headless,
     )
     scraper.scrap_scenario()
 

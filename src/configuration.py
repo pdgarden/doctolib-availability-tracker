@@ -13,6 +13,9 @@ class Configuration(BaseSettings):
     sender_gmail_password: SecretStr = Field(description="Sender gmail app password used to send email")
     receiver_email: str = Field(description="Gmail account used to receive email")
 
+    # Scraper
+    headless: bool = Field(description="Set to true to run in headless mode", default=True)
+
     # Search
     search_term: str = Field(description="Search term to use in doctolib search page", examples=["ORL"])
     search_place: str = Field(description="Search place to use in doctolib search page", examples=["Paris", "Agen"])
