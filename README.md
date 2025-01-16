@@ -57,7 +57,7 @@ The behavior are controlled through the environment variables, for instance to c
 - Change the `.env` file
 - Run the following:
 ```shell
-(export search_place=Marseille; export search_term=Cardiologue; uv run python src/doctolib_availability_tracker/main.py)
+(export search_place=Marseille; export search_term=Cardiologue; uv run python -m src.main)
 ```
 
 # 5. 🏆 Code Quality and Formatting
