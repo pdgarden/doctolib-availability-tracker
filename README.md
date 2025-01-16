@@ -18,8 +18,8 @@ A Selenium-based web scraper that monitors Doctolib for available medical appoin
 
 # 2. 📟 Prerequisites
 
-The project is developed and tested using uv (`v0.5.10`).
-
+- Install uv to handle python version and dependencies (`v0.5.10`).
+- To receive notification by email, you must setup your google mail app password, see [how to](https://stackoverflow.com/questions/72478573/how-to-send-an-email-using-python-after-googles-policy-update-on-not-allowing-j)
 
 **Environment variables**
 
