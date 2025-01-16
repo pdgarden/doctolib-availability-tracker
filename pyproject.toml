@@ -12,6 +12,7 @@ dependencies = [
     "pydantic-settings>=2.7.1",
     "pydantic>=2.10.4",
     "selenium>=4.27.1",
+    "webdriver-manager>=4.0.2",
 ]
 
 
