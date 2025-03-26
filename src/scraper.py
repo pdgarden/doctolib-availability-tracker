@@ -269,7 +269,6 @@ class Scraper:
             self.extract_doctor_availability()
             logger.debug("Extracted")
             last_page = not self.go_next_page()
-            last_page = True
         self.filter_availabilities()
         logger.info("End scraping scenario")
 
