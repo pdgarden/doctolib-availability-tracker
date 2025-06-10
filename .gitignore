@@ -9,6 +9,11 @@ wheels/
 # Virtual environments
 .venv
 
+# VS Code
+.vscode
 
 # Dotfile
 .env
+
+# Logs
+*.log
