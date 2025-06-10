@@ -12,6 +12,7 @@ class Configuration(BaseSettings):
     sender_email: str = Field(description="Gmail account used to send email")
     sender_gmail_password: SecretStr = Field(description="Sender gmail app password used to send email")
     receiver_email: str = Field(description="Gmail account used to receive email")
+    smtp_server: str = Field(description="SMTP server to use to send email")
 
     # Scraper
     headless: bool = Field(description="Set to true to run in headless mode", default=True)

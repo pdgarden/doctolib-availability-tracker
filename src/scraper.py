@@ -33,6 +33,7 @@ class DoctorAvailability(BaseModel):
     doctor_name: str
     next_availability: date | None
     address: str
+    doctor_rdv_url: str
 
 
 # ------------------------------------------------------------------------------------------------ #
@@ -155,6 +156,15 @@ class Scraper:
                     )
                     .text
                 )
+                doctor_rdv_url = (
+                    WebDriverWait(doctor_element, 1.5)
+                    .until(
+                        EC.presence_of_element_located(
+                            (By.CSS_SELECTOR, "a.dl-p-doctor-result-link.dl-full-width.dl-flex-center")
+                        )
+                    )
+                    .get_attribute("href")
+                )
                 address = doctor_element.find_elements(By.CLASS_NAME, "dl-text-regular.dl-text-s")[2].text
 
                 next_availability = self.get_next_availability_date(doctor_element=doctor_element)
@@ -163,6 +173,7 @@ class Scraper:
                     doctor_name=doctor_name,
                     next_availability=next_availability,
                     address=address,
+                    doctor_rdv_url=doctor_rdv_url
                 )
                 logger.debug(doctor)
                 self.availabilities.append(doctor)
@@ -272,17 +283,30 @@ class Scraper:
         self.filter_availabilities()
         logger.info("End scraping scenario")
 
-    def get_accepted_availabilities_pretty(self) -> str:
+    def get_accepted_availabilities_pretty(self) -> dict[str, str]:
         """Return a str representing accepted availabilities in a pretty format."""
 
         availabilities_str = "\n".join(
             [
-                f"- {doctor.next_availability.strftime("%d/%m/%Y")}: {doctor.address} ({doctor.doctor_name})"
+                f"- {doctor.next_availability.strftime("%d/%m/%Y")}: {doctor.address}\
+                    ({doctor.doctor_name} - Prendre Rdv: {doctor.doctor_rdv_url})"
                 for doctor in sorted(self.accepted_availabilities, key=lambda e: e.next_availability)
             ]
         )
+        availabilities_html = "<html>" + \
+            "<body>" + \
+            "<p>Voici les prochaines disponibilités pour votre recherche :</p><br>" + \
+            " ".join(
+            [
+                f"<p>Le {doctor.next_availability.strftime("%d/%m/%Y")} à {doctor.address}.\
+                Dct {doctor.doctor_name} - <a href={doctor.doctor_rdv_url}>Prendre Rdv</a> </p>"
+                for doctor in sorted(self.accepted_availabilities, key=lambda e: e.next_availability)
+            ]) + \
+            "</body>" + \
+            "</html>"
 
         # Handle encoding issues. Could be improved to keep special characters.
         availabilities_str = availabilities_str.encode("ascii", "ignore").decode("ascii")
+        result = {"message_txt": availabilities_str, "message_html": availabilities_html}
 
-        return availabilities_str
+        return result

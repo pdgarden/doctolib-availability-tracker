@@ -24,7 +24,10 @@ def main() -> None:
         availabilities = scraper.get_accepted_availabilities_pretty()
         send_email(
             receiver_email=config.receiver_email,
-            message=f"""Subject: RDV Doctolib: {config.search_term} ({config.search_place})\n\n{availabilities}""",
+            subject=f"""[Doctolib Tracker] Nouveaux RDV disponibles pour\
+                    {config.search_term} ({config.search_place})""",
+            message_txt=f"""{availabilities.get("message_txt")}""",
+            message_html=f"""{availabilities.get("message_html")}""",
         )
 
     logger.info("end")
