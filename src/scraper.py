@@ -12,7 +12,12 @@ from datetime import date, timedelta
 from loguru import logger
 from pydantic import BaseModel
 from selenium import webdriver
-from selenium.common.exceptions import ElementClickInterceptedException, NoSuchElementException, TimeoutException
+from selenium.common.exceptions import (
+    ElementClickInterceptedException,
+    NoSuchElementException,
+    SessionNotCreatedException,
+    TimeoutException,
+)
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
@@ -80,8 +85,12 @@ class Scraper:
             chrome_options.add_argument("--headless=new")
         else:
             chrome_options = None
-
-        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+        try:
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),
+                                        options=chrome_options)
+        except SessionNotCreatedException as exc:
+            logger.error("Couldn't init browser driver. Program launched in script without headless mode ?")
+            logger.info({exc})
         self.wait: WebDriverWait = WebDriverWait(self.driver, 1.5)
 
     def open_browser(self) -> None:
