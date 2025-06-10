@@ -223,7 +223,7 @@ class Scraper:
 
         return next_availability_date
 
-    def go_next_page(self) -> None:
+    def go_next_page(self) -> bool:
         """Go to next search page, return False if there is no next page"""
         next_page_available = False
         try:
